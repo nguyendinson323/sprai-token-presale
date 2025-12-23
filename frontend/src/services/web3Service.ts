@@ -67,14 +67,14 @@ class Web3Service {
           method: 'wallet_addEthereumChain',
           params: [{
             chainId: chainIdHex,
-            chainName: 'BNB Smart Chain',
+            chainName: config.chainName,
             nativeCurrency: {
               name: 'BNB',
               symbol: 'BNB',
               decimals: 18,
             },
             rpcUrls: [config.bscRpcUrl],
-            blockExplorerUrls: ['https://bscscan.com/'],
+            blockExplorerUrls: [config.blockExplorerUrl],
           }],
         });
       }

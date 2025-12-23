@@ -1,47 +1,49 @@
 import React, { useState } from 'react';
+import { config } from '../../../config';
 
 interface FAQItem {
   question: string;
   answer: string;
 }
 
-const faqs: FAQItem[] = [
-  {
-    question: 'What is SPRAI Token?',
-    answer: 'SPRAI Token is a BEP-20 token built on the Binance Smart Chain with a fixed supply of 2 million tokens. It is designed to power decentralized applications and services within our ecosystem.',
-  },
-  {
-    question: 'How do I participate in the presale?',
-    answer: 'Connect your MetaMask wallet, ensure you have USDT on BSC network, enter the amount you want to invest (minimum $10, maximum $10,000), and confirm the transaction. SPRAI tokens will be automatically sent to your wallet.',
-  },
-  {
-    question: 'What payment methods are accepted?',
-    answer: 'The presale accepts USDT (BEP-20) on the Binance Smart Chain. Make sure your wallet is connected to BSC network and has sufficient USDT balance.',
-  },
-  {
-    question: 'When will I receive my tokens?',
-    answer: 'Tokens are distributed automatically and instantly through our smart contract. As soon as your transaction is confirmed on the blockchain, SPRAI tokens will appear in your wallet.',
-  },
-  {
-    question: 'What is the token price?',
-    answer: 'The presale price is $0.50 USDT per SPRAI token. This is a special early supporter price with no further discounts or bonuses.',
-  },
-  {
-    question: 'Is there a minimum or maximum purchase limit?',
-    answer: 'Yes, the minimum purchase is $10 USDT and the maximum purchase is $10,000 USDT per transaction. You can make multiple transactions if needed.',
-  },
-  {
-    question: 'Is the presale secure?',
-    answer: 'Yes, the presale is powered by audited smart contracts on Binance Smart Chain. All transactions are transparent and verifiable on-chain. We do not hold any funds - everything is handled automatically by the smart contract.',
-  },
-  {
-    question: 'Can I add SPRAI token to my wallet?',
-    answer: 'Yes, after receiving your tokens, you can add the SPRAI token contract address to MetaMask to view your balance. The contract address will be provided after deployment.',
-  },
-];
-
 const FAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // FAQs with dynamic values from config
+  const faqs: FAQItem[] = [
+    {
+      question: `What is ${config.tokenSymbol} Token?`,
+      answer: `${config.tokenSymbol} Token is a BEP-20 token built on the Binance Smart Chain with a fixed supply of ${config.tokenTotalSupply.toLocaleString()} tokens. It is designed to power decentralized applications and services within our ecosystem.`,
+    },
+    {
+      question: 'How do I participate in the presale?',
+      answer: `Connect your MetaMask wallet, ensure you have USDT on BSC network, enter the amount you want to invest (minimum $${config.minPurchaseUsdt}, maximum $${config.maxPurchaseUsdt.toLocaleString()}), and confirm the transaction. ${config.tokenSymbol} tokens will be automatically sent to your wallet.`,
+    },
+    {
+      question: 'What payment methods are accepted?',
+      answer: 'The presale accepts USDT (BEP-20) on the Binance Smart Chain. Make sure your wallet is connected to BSC network and has sufficient USDT balance.',
+    },
+    {
+      question: 'When will I receive my tokens?',
+      answer: `Tokens are distributed automatically and instantly through our smart contract. As soon as your transaction is confirmed on the blockchain, ${config.tokenSymbol} tokens will appear in your wallet.`,
+    },
+    {
+      question: 'What is the token price?',
+      answer: `The presale price is $${config.tokenPriceUsdt} USDT per ${config.tokenSymbol} token. This is a special early supporter price with no further discounts or bonuses.`,
+    },
+    {
+      question: 'Is there a minimum or maximum purchase limit?',
+      answer: `Yes, the minimum purchase is $${config.minPurchaseUsdt} USDT and the maximum purchase is $${config.maxPurchaseUsdt.toLocaleString()} USDT per transaction. You can make multiple transactions if needed.`,
+    },
+    {
+      question: 'Is the presale secure?',
+      answer: 'Yes, the presale is powered by audited smart contracts on Binance Smart Chain. All transactions are transparent and verifiable on-chain. We do not hold any funds - everything is handled automatically by the smart contract.',
+    },
+    {
+      question: `Can I add ${config.tokenSymbol} token to my wallet?`,
+      answer: `Yes, after receiving your tokens, you can add the ${config.tokenSymbol} token contract address to MetaMask to view your balance. The contract address will be provided after deployment.`,
+    },
+  ];
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

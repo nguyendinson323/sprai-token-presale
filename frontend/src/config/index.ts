@@ -2,6 +2,7 @@
 // FRONTEND CONFIGURATION
 // ALL VALUES FROM ENVIRONMENT VARIABLES
 // SUPPORTS BOTH TESTNET AND MAINNET
+// ZERO HARDCODED VALUES
 // ============================================
 
 // Determine which network to use
@@ -15,11 +16,17 @@ export const config = {
 
   // Network Configuration (based on VITE_NETWORK)
   bscRpcUrl: isMainnet
-    ? import.meta.env.VITE_BSC_MAINNET_RPC || 'https://bsc-dataseed.binance.org/'
-    : import.meta.env.VITE_BSC_TESTNET_RPC || 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    ? import.meta.env.VITE_BSC_MAINNET_RPC || ''
+    : import.meta.env.VITE_BSC_TESTNET_RPC || '',
   chainId: isMainnet
     ? parseInt(import.meta.env.VITE_CHAIN_ID_MAINNET || '56')
     : parseInt(import.meta.env.VITE_CHAIN_ID_TESTNET || '97'),
+  chainName: isMainnet
+    ? import.meta.env.VITE_CHAIN_NAME_MAINNET || ''
+    : import.meta.env.VITE_CHAIN_NAME_TESTNET || '',
+  blockExplorerUrl: isMainnet
+    ? import.meta.env.VITE_BLOCK_EXPLORER_MAINNET || ''
+    : import.meta.env.VITE_BLOCK_EXPLORER_TESTNET || '',
 
   // Contracts (based on network)
   usdtContract: isMainnet
@@ -33,6 +40,12 @@ export const config = {
     : import.meta.env.VITE_PRESALE_CONTRACT_TESTNET || '',
   ownerWallet: import.meta.env.VITE_OWNER_WALLET || '',
 
+  // Token Info
+  tokenName: import.meta.env.VITE_TOKEN_NAME || '',
+  tokenSymbol: import.meta.env.VITE_TOKEN_SYMBOL || '',
+  tokenDecimals: parseInt(import.meta.env.VITE_TOKEN_DECIMALS || '18'),
+  tokenTotalSupply: parseInt(import.meta.env.VITE_TOKEN_TOTAL_SUPPLY || '2000000'),
+
   // Pre-sale
   tokenPriceUsdt: parseFloat(import.meta.env.VITE_TOKEN_PRICE_USDT || '0.50'),
   minPurchaseUsdt: parseFloat(import.meta.env.VITE_MIN_PURCHASE_USDT || '10'),
@@ -40,6 +53,12 @@ export const config = {
 
   // Backend API
   apiUrl: import.meta.env.VITE_API_URL || '',
+
+  // Social Links
+  telegramUrl: import.meta.env.VITE_TELEGRAM_URL || '',
+  twitterUrl: import.meta.env.VITE_TWITTER_URL || '',
+  discordUrl: import.meta.env.VITE_DISCORD_URL || '',
+  websiteUrl: import.meta.env.VITE_WEBSITE_URL || '',
 };
 
 // ============================================
