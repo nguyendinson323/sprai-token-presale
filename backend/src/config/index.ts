@@ -28,7 +28,7 @@ export const config = {
   ownerWallet: process.env.OWNER_WALLET || '',
 
   // USDT Contract
-  usdtContractBsc: process.env.USDT_CONTRACT_BSC || '',
+  usdtContractMainnet: process.env.USDT_CONTRACT_MAINNET || '',
   usdtContractTestnet: process.env.USDT_CONTRACT_TESTNET || '',
 
   // Pre-sale
