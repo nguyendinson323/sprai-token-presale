@@ -70,7 +70,7 @@ const Header: React.FC = () => {
             {connected && address ? (
               <button
                 onClick={handleDisconnectWallet}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md text-sm sm:text-base"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md text-sm sm:text-base"
               >
                 <span className="hidden sm:inline">
                   {address.slice(0, 6)}...{address.slice(-4)}
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
               <button
                 onClick={handleConnectWallet}
                 disabled={isLoading}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:from-gray-400 disabled:to-gray-500 shadow-md text-sm sm:text-base"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:from-gray-400 disabled:to-gray-500 shadow-md text-sm sm:text-base"
               >
                 Connect Wallet
               </button>
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
         <nav className="md:hidden flex space-x-4 pb-4">
           <Link
             to="/"
-            className={`flex-1 text-center py-2 rounded-lg font-medium transition-colors ${
+            className={`flex-1 text-center py-2 rounded-sm font-medium transition-colors ${
               isActive('/')
                 ? 'bg-blue-100 text-blue-600'
                 : 'text-gray-700 hover:bg-gray-100'
@@ -105,7 +105,7 @@ const Header: React.FC = () => {
           </Link>
           <Link
             to="/presale"
-            className={`flex-1 text-center py-2 rounded-lg font-medium transition-colors ${
+            className={`flex-1 text-center py-2 rounded-sm font-medium transition-colors ${
               isActive('/presale')
                 ? 'bg-blue-100 text-blue-600'
                 : 'text-gray-700 hover:bg-gray-100'

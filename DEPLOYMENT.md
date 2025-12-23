@@ -1,337 +1,246 @@
 # SPRAI Token Presale - Deployment Guide
 
-This guide provides step-by-step instructions for deploying the SPRAI Token presale project.
-
 ## Prerequisites
 
 1. Node.js (v18 or higher)
 2. PostgreSQL database
-3. MetaMask wallet with BNB for gas fees
-4. USDT tokens for testing (on BSC Testnet or Mainnet)
+3. MetaMask/Trust Wallet with BNB for gas fees
+4. USDT tokens for testing
 
-## Step 1: Environment Configuration
+## Configuration Structure
 
-### Root .env File
+**Each module has its own `.env` file. Shared values MUST match across all files.**
 
-Create a `.env` file in the project root with the following variables:
+```
+contracts/.env      # Contract deployment config
+backend/.env        # Backend server config
+frontend/.env       # Frontend UI config
+```
+
+## Step 1: Configure Environment Files
+
+### contracts/.env
 
 ```env
-# Network Configuration
 NETWORK=bsc_testnet
 BSC_MAINNET_RPC=https://bsc-dataseed.binance.org/
 BSC_TESTNET_RPC=https://data-seed-prebsc-1-s1.binance.org:8545/
 CHAIN_ID_MAINNET=56
 CHAIN_ID_TESTNET=97
 
-# Token Configuration
 TOKEN_NAME=SPRAI TOKEN
 TOKEN_SYMBOL=SPRAI
 TOKEN_DECIMALS=18
 TOKEN_TOTAL_SUPPLY=2000000
+OWNER_WALLET=0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
 
-# Owner Wallet (YOUR WALLET ADDRESS)
-OWNER_WALLET=0xYourWalletAddressHere
-OWNER_PRIVATE_KEY=your_private_key_here
-
-# USDT Contracts
-USDT_CONTRACT_BSC=0x55d398326f99059fF775485246999027B3197955
+USDT_CONTRACT_MAINNET=0x55d398326f99059fF775485246999027B3197955
 USDT_CONTRACT_TESTNET=0x337610d27c682E347C9cD60BD4b3b107C9d34dDd
 
-# Presale Configuration
-PRESALE_TOKEN_PRICE_USDT=0.50
+PRESALE_TOKEN_PRICE_USDT=0.25
 PRESALE_MIN_PURCHASE_USDT=10
 PRESALE_MAX_PURCHASE_USDT=10000
 
-# Backend Configuration
+SPRAI_TOKEN_CONTRACT=
+PRESALE_CONTRACT=
+
+DEPLOYER_PRIVATE_KEY=
+BSCSCAN_API_KEY=
+```
+
+### backend/.env
+
+```env
 BACKEND_PORT=3000
 BACKEND_HOST=localhost
-CORS_ORIGIN=http://localhost:5173
 NODE_ENV=development
+CORS_ORIGIN=http://localhost:5173
 
-# PostgreSQL Database
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=sprai_presale
 DB_USER=postgres
-DB_PASSWORD=your_database_password
+DB_PASSWORD=your_password_here
 
-# Database Pool
 DB_POOL_MAX=20
 DB_POOL_MIN=0
 DB_POOL_ACQUIRE=30000
 DB_POOL_IDLE=10000
 
-# JWT & Security
-JWT_SECRET=your_secure_jwt_secret_here_change_in_production
+JWT_SECRET=your_secure_jwt_secret_here
 JWT_EXPIRES_IN=7d
 
-# Rate Limiting
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
 
-# Contract Addresses (empty until deployment)
+# Shared values (MUST MATCH contracts/.env and frontend/.env)
+NETWORK=bsc_testnet
+TOKEN_NAME=SPRAI TOKEN
+TOKEN_SYMBOL=SPRAI
+TOKEN_DECIMALS=18
+TOKEN_TOTAL_SUPPLY=2000000
+OWNER_WALLET=0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
+
+USDT_CONTRACT_MAINNET=0x55d398326f99059fF775485246999027B3197955
+USDT_CONTRACT_TESTNET=0x337610d27c682E347C9cD60BD4b3b107C9d34dDd
+
+PRESALE_TOKEN_PRICE_USDT=0.25
+PRESALE_MIN_PURCHASE_USDT=10
+PRESALE_MAX_PURCHASE_USDT=10000
+
 SPRAI_TOKEN_CONTRACT=
 PRESALE_CONTRACT=
 ```
 
-### Frontend .env File
-
-Create `frontend/.env`:
+### frontend/.env
 
 ```env
-# ⚠️ IMPORTANT: Change VITE_NETWORK to switch between testnet and mainnet
-# Set to 'testnet' for testing, 'mainnet' for production
 VITE_NETWORK=testnet
 
-# BSC Mainnet Configuration
+# BSC Mainnet
 VITE_BSC_MAINNET_RPC=https://bsc-dataseed.binance.org/
 VITE_CHAIN_ID_MAINNET=56
+VITE_CHAIN_NAME_MAINNET=BNB Smart Chain
+VITE_BLOCK_EXPLORER_MAINNET=https://bscscan.com/
 VITE_USDT_CONTRACT_MAINNET=0x55d398326f99059fF775485246999027B3197955
 
-# BSC Testnet Configuration
+# BSC Testnet
 VITE_BSC_TESTNET_RPC=https://data-seed-prebsc-1-s1.binance.org:8545/
 VITE_CHAIN_ID_TESTNET=97
+VITE_CHAIN_NAME_TESTNET=BNB Smart Chain Testnet
+VITE_BLOCK_EXPLORER_TESTNET=https://testnet.bscscan.com/
 VITE_USDT_CONTRACT_TESTNET=0x337610d27c682E347C9cD60BD4b3b107C9d34dDd
 
-# Owner Wallet
-VITE_OWNER_WALLET=0xYourWalletAddressHere
+# Token Info (MUST MATCH contracts/.env and backend/.env)
+VITE_TOKEN_NAME=SPRAI TOKEN
+VITE_TOKEN_SYMBOL=SPRAI
+VITE_TOKEN_DECIMALS=18
+VITE_TOKEN_TOTAL_SUPPLY=2000000
 
-# Contract Addresses - Mainnet (Fill after mainnet deployment)
+VITE_OWNER_WALLET=0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
+
+# Contract Addresses (fill after deployment)
 VITE_SPRAI_TOKEN_CONTRACT_MAINNET=
 VITE_PRESALE_CONTRACT_MAINNET=
-
-# Contract Addresses - Testnet (Fill after testnet deployment)
 VITE_SPRAI_TOKEN_CONTRACT_TESTNET=
 VITE_PRESALE_CONTRACT_TESTNET=
 
-# Presale Configuration
-VITE_TOKEN_PRICE_USDT=0.50
+# Pre-sale (MUST MATCH contracts/.env and backend/.env)
+VITE_TOKEN_PRICE_USDT=0.25
 VITE_MIN_PURCHASE_USDT=10
 VITE_MAX_PURCHASE_USDT=10000
 
-# Backend API
 VITE_API_URL=http://localhost:3000
+
+# Social Links
+VITE_TELEGRAM_URL=
+VITE_TWITTER_URL=
+VITE_DISCORD_URL=
+VITE_WEBSITE_URL=
 ```
-
-**To Switch Networks:**
-- For **Testnet**: Set `VITE_NETWORK=testnet`
-- For **Mainnet**: Set `VITE_NETWORK=mainnet`
-
-The frontend will automatically use the correct RPC URL, chain ID, USDT contract, and deployed contract addresses based on this setting.
 
 ## Step 2: Install Dependencies
 
 ```bash
-# Install contract dependencies
-cd contracts
-npm install
-
-# Install backend dependencies
-cd ../backend
-npm install
-
-# Install frontend dependencies
-cd ../frontend
-npm install
+cd contracts && npm install
+cd ../backend && npm install
+cd ../frontend && npm install
 ```
 
 ## Step 3: Database Setup
 
-1. Create PostgreSQL database:
-
 ```sql
 CREATE DATABASE sprai_presale;
 ```
-
-2. Run migrations from backend directory:
 
 ```bash
 cd backend
 npm run db:migrate
 ```
 
-This will create the transactions table with the correct schema.
-
 ## Step 4: Deploy Smart Contracts
 
-1. Compile contracts:
+### Option A: Deploy via Hardhat (requires private key)
 
 ```bash
 cd contracts
 npx hardhat compile
+npx hardhat run scripts/deploy.ts --network bscTestnet
 ```
 
-2. Deploy to BSC Testnet:
+### Option B: Deploy via Remix (recommended - no private key in file)
+
+1. Open [Remix IDE](https://remix.ethereum.org)
+2. Create `SPRAI.sol` and `SPRAIPresale.sol` files
+3. Compile with Solidity 0.8.20
+4. Connect MetaMask/Trust Wallet
+5. Deploy SPRAI token first
+6. Deploy SPRAIPresale with parameters:
+   - `_spraiToken`: SPRAI token address
+   - `_usdtToken`: 0x337610d27c682E347C9cD60BD4b3b107C9d34dDd (testnet)
+   - `_treasury`: 0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
+   - `_tokenPrice`: 250000000000000000 (0.25 with 18 decimals)
+   - `_minPurchase`: 10000000000000000000 (10 USDT)
+   - `_maxPurchase`: 10000000000000000000000 (10000 USDT)
+
+## Step 5: Post-Deployment
+
+1. **Update all .env files** with deployed contract addresses
+2. **Approve SPRAI tokens** to presale contract:
+   - Call `approve()` on SPRAI token
+   - Spender: Presale contract address
+   - Amount: 500000000000000000000000 (500,000 tokens)
+
+## Step 6: Start Services
 
 ```bash
-npx hardhat run scripts/deploy.ts --network bsc_testnet
+# Terminal 1: Backend
+cd backend && npm run dev
+
+# Terminal 2: Frontend
+cd frontend && npm run dev
 ```
 
-3. **IMPORTANT**: Save the contract addresses from the deployment output:
-   - SPRAI Token Contract Address
-   - Presale Contract Address
+## Step 7: Test Purchase
 
-4. Update both `.env` files with the deployed contract addresses:
-   - Root `.env`: `SPRAI_TOKEN_CONTRACT` and `PRESALE_CONTRACT`
-   - Frontend `.env`: `VITE_SPRAI_TOKEN_CONTRACT` and `VITE_PRESALE_CONTRACT`
+1. Open http://localhost:5173
+2. Connect wallet
+3. Enter USDT amount (min $10)
+4. Approve USDT
+5. Buy SPRAI
+6. Verify tokens received
 
-5. **CRITICAL**: Approve SPRAI tokens to Presale contract:
+## Network Switching
 
-```bash
-# In MetaMask or using Hardhat console:
-# Approve 500,000 SPRAI tokens to the presale contract
-# This allows the presale contract to distribute tokens automatically
+**Testnet (testing):**
+```env
+VITE_NETWORK=testnet
 ```
 
-## Step 5: Start Backend Server
-
-```bash
-cd backend
-npm run dev
+**Mainnet (production):**
+```env
+VITE_NETWORK=mainnet
 ```
 
-The backend will start on `http://localhost:3000`
+## Production Checklist
 
-Verify backend is running by visiting: `http://localhost:3000/api/transactions/stats`
-
-## Step 6: Start Frontend
-
-```bash
-cd frontend
-npm run dev
-```
-
-The frontend will start on `http://localhost:5173`
-
-## Step 7: Testing the Presale
-
-1. Open `http://localhost:5173` in your browser
-2. Connect MetaMask wallet
-3. Make sure you have:
-   - BNB for gas fees
-   - USDT tokens for testing
-4. Enter amount and purchase SPRAI tokens
-5. Check your wallet for received SPRAI tokens
-
-## Step 8: Production Deployment
-
-### Smart Contracts to BSC Mainnet
-
-1. Update root `.env`:
-   - Set `NETWORK=bsc_mainnet`
-   - Update `USDT_CONTRACT_BSC` to mainnet address
-
-2. Deploy to mainnet:
-
-```bash
-cd contracts
-npx hardhat run scripts/deploy.ts --network bsc_mainnet
-```
-
-3. Update both `.env` files with mainnet contract addresses
-
-### Backend Production Deployment
-
-1. Update backend `.env`:
-   - Set `NODE_ENV=production`
-   - Update `CORS_ORIGIN` to your frontend domain
-   - Use production database credentials
-   - Change `JWT_SECRET` to a secure value
-
-2. Build backend:
-
-```bash
-cd backend
-npm run build
-```
-
-3. Deploy to your server (Heroku, AWS, DigitalOcean, etc.)
-
-4. Start production server:
-
-```bash
-npm start
-```
-
-### Frontend Production Deployment
-
-1. Update frontend `.env`:
-   - Update `VITE_BSC_RPC_URL` to mainnet RPC
-   - Set `VITE_CHAIN_ID=56`
-   - Update `VITE_API_URL` to your backend domain
-   - Update contract addresses to mainnet addresses
-
-2. Build frontend:
-
-```bash
-cd frontend
-npm run build
-```
-
-3. Deploy `dist` folder to:
-   - Vercel
-   - Netlify
-   - AWS S3 + CloudFront
-   - Your web server
-
-## Verification Checklist
-
-Before going live, verify:
-
-- [ ] Smart contracts deployed to BSC Mainnet
+- [ ] Deploy contracts to BSC Mainnet
+- [ ] Update all .env files with mainnet addresses
 - [ ] Owner approved 500,000 SPRAI to presale contract
-- [ ] Backend connected to production database
-- [ ] Frontend `.env` has correct mainnet contract addresses
-- [ ] CORS configured correctly
-- [ ] JWT secret changed from default
-- [ ] Rate limiting configured
-- [ ] Test purchase works end-to-end
-- [ ] Tokens are automatically distributed
-- [ ] Transaction tracking works in backend
-- [ ] Stats display correctly on frontend
+- [ ] Change `NODE_ENV=production` in backend
+- [ ] Change `VITE_NETWORK=mainnet` in frontend
+- [ ] Update `CORS_ORIGIN` to production domain
+- [ ] Update `VITE_API_URL` to production backend URL
+- [ ] Change `JWT_SECRET` to secure value
+- [ ] Test end-to-end purchase flow
+- [ ] Verify automatic token distribution
 
 ## Troubleshooting
 
-### Transaction Fails
-
-- Check USDT balance
-- Check BNB balance for gas
-- Verify presale contract has approval for owner's SPRAI tokens
-- Check that amount is within min/max limits
-
-### Tokens Not Received
-
-- Verify presale contract has approval
-- Check transaction on BSCScan
-- Add SPRAI token to MetaMask using contract address
-
-### Backend Connection Error
-
-- Verify backend is running
-- Check CORS settings
-- Verify API_URL in frontend .env
-- Check network tab in browser DevTools
-
-### Database Connection Error
-
-- Verify PostgreSQL is running
-- Check database credentials in .env
-- Verify database exists
-- Check firewall settings
-
-## Support
-
-For issues or questions:
-- Check BSCScan for transaction details
-- Review backend logs
-- Check browser console for frontend errors
-- Verify all environment variables are set correctly
-
-## Security Notes
-
-- Never commit `.env` files to git
-- Keep private keys secure
-- Use hardware wallet for mainnet deployment
-- Audit smart contracts before mainnet deployment
-- Monitor presale transactions regularly
-- Set up alerts for unusual activity
+| Issue | Solution |
+|-------|----------|
+| Transaction fails | Check BNB balance for gas, USDT balance, approval status |
+| Tokens not received | Verify presale has SPRAI approval, check BSCScan |
+| Backend error | Check database connection, verify .env values |
+| Wrong network | Verify VITE_NETWORK setting matches deployment |
+| Price mismatch | Ensure all .env files have same PRESALE_TOKEN_PRICE_USDT |

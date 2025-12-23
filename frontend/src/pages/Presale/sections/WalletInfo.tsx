@@ -7,7 +7,7 @@ const WalletInfo: React.FC = () => {
   if (!address) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <div className="bg-white rounded-sm shadow-lg p-6 mb-8">
       <h3 className="text-xl font-bold mb-4 text-gray-900">Wallet Information</h3>
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b pb-3">

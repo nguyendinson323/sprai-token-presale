@@ -23,7 +23,7 @@ const App: React.FC = () => {
             {notifications.map((notification) => (
               <div
                 key={notification.id}
-                className={`rounded-lg shadow-lg p-4 animate-slide-in ${
+                className={`rounded-sm shadow-lg p-4 animate-slide-in ${
                   notification.type === 'success'
                     ? 'bg-green-500 text-white'
                     : notification.type === 'error'

@@ -36,7 +36,7 @@ const Presale: React.FC = () => {
 
         {/* Connect Wallet Section */}
         {!connected ? (
-          <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="max-w-md mx-auto bg-white rounded-sm shadow-lg p-8 text-center">
             <div className="text-6xl mb-4">🔒</div>
             <h2 className="text-2xl font-bold mb-4 text-gray-900">Connect Your Wallet</h2>
             <p className="text-gray-600 mb-6">
@@ -44,7 +44,7 @@ const Presale: React.FC = () => {
             </p>
             <button
               onClick={handleConnectWallet}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 shadow-lg"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-sm font-bold text-lg hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 shadow-lg"
             >
               Connect MetaMask
             </button>
@@ -63,7 +63,7 @@ const Presale: React.FC = () => {
 
               {/* Transaction History */}
               {transactions.length > 0 && (
-                <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
+                <div className="mt-8 bg-white rounded-sm shadow-lg p-6">
                   <h3 className="text-xl font-bold mb-4 text-gray-900">Your Transactions</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">

@@ -1,10 +1,14 @@
 # SPRAI Token Pre-Sale Project
 
-## ✅ CLEAN IMPLEMENTATION - ALL BUGS FIXED
+## Project Overview
 
-This is a **COMPLETE REWRITE** from scratch following the corrected [PROJECT_IMPLEMENTATION_GUIDE.md](PROJECT_IMPLEMENTATION_GUIDE.md).
+**Token:** SPRAI TOKEN (SPRAI)
+**Network:** BNB Smart Chain (BSC)
+**Total Supply:** 2,000,000 SPRAI (fixed)
+**Pre-sale Price:** $0.25 USDT per SPRAI
+**Owner Wallet:** 0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
 
-### 🚨 CRITICAL: What This Project Does
+## What This Project Does
 
 **AUTOMATIC token distribution via smart contract** - NOT manual distribution!
 
@@ -12,200 +16,122 @@ When a user buys SPRAI tokens:
 1. User approves USDT to presale contract
 2. User calls `buyTokens()` on presale contract
 3. **PRESALE CONTRACT automatically:**
-   - Transfers USDT from buyer → owner wallet
-   - Transfers SPRAI from owner → buyer wallet
+   - Transfers USDT from buyer to owner wallet
+   - Transfers SPRAI from owner to buyer wallet
    - ALL IN ONE TRANSACTION
 
-### 📁 Project Structure
+## Project Structure
 
 ```
 Alan/
-├── .env                          # ⚠️ ALL CONFIGURATION HERE
 ├── contracts/                    # Smart contracts (Hardhat)
+│   ├── .env                     # Contracts configuration
+│   ├── .env.example
 │   ├── contracts/
 │   │   ├── SPRAI.sol            # BEP-20 token (2M fixed supply)
-│   │   └── SPRAIPresale.sol     # ⚠️ AUTOMATIC distribution contract
+│   │   └── SPRAIPresale.sol     # Automatic distribution contract
 │   ├── scripts/
-│   │   └── deploy.ts            # Deploys both contracts
-│   ├── package.json
+│   │   └── deploy.ts
 │   └── hardhat.config.ts
 │
 ├── backend/                      # Node + Express + PostgreSQL
+│   ├── .env                     # Backend configuration
+│   ├── .env.example
 │   ├── src/
-│   │   ├── config/index.ts      # ⚠️ All config from .env
+│   │   ├── config/index.ts      # Config from backend/.env
 │   │   ├── database/
-│   │   │   ├── config.ts
-│   │   │   └── models/Transaction.ts
-│   │   └── services/web3Service.ts
-│   ├── package.json
-│   └── tsconfig.json
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   └── services/
+│   └── package.json
 │
-└── frontend/                     # React + Vite + TypeScript + Redux
-    ├── src/
-    │   ├── config/index.ts      # ⚠️ All config from .env
-    │   ├── store/
-    │   │   └── slices/          # Redux with TypeScript
-    │   ├── services/
-    │   │   ├── web3Service.ts   # ⚠️ Calls presale contract
-    │   │   └── apiService.ts
-    │   ├── pages/
-    │   │   ├── Home/
-    │   │   │   ├── index.tsx
-    │   │   │   └── sections/    # AboutSection, FAQSection, etc.
-    │   │   └── Presale/
-    │   │       ├── index.tsx
-    │   │       └── sections/    # WalletInfo, PurchaseForm, Stats
-    │   └── types/database.ts    # TypeScript types match DB schema
-    ├── .env
-    ├── package.json
-    ├── vite.config.ts
-    └── tailwind.config.js
+├── frontend/                     # React + Vite + TypeScript + Redux
+│   ├── .env                     # Frontend configuration
+│   ├── .env.example
+│   ├── src/
+│   │   ├── config/index.ts      # Config from frontend/.env
+│   │   ├── store/slices/
+│   │   ├── services/
+│   │   ├── pages/
+│   │   └── components/
+│   └── package.json
+│
+└── overview/
+    ├── rule.txt
+    └── PROJECT_IMPLEMENTATION_GUIDE.md
 ```
 
-## 🚀 Quick Start
+## Configuration
+
+**Each module has its own `.env` file. Shared values MUST match across all files.**
+
+- `contracts/.env` - Deployment configuration
+- `backend/.env` - Server and database configuration
+- `frontend/.env` - UI and API configuration
+
+## Quick Start
 
 ### 1. Install Dependencies
 
 ```bash
-# Install contracts dependencies
-cd contracts
-npm install
-
-# Install backend dependencies
-cd ../backend
-npm install
-
-# Install frontend dependencies
-cd ../frontend
-npm install
+cd contracts && npm install
+cd ../backend && npm install
+cd ../frontend && npm install
 ```
 
-### 2. Configure Environment Variables
+### 2. Configure Environment
 
-The root `.env` file is ALREADY configured. After deploying contracts, update:
+Copy `.env.example` to `.env` in each module and fill values.
 
-```env
-SPRAI_TOKEN_CONTRACT=<address_from_deployment>
-PRESALE_CONTRACT=<address_from_deployment>
+### 3. Build & Test
+
+```bash
+# Contracts
+cd contracts && npx hardhat compile
+
+# Backend
+cd backend && npx tsc --noEmit
+
+# Frontend
+cd frontend && npm run build
 ```
 
-### 3. Deploy Smart Contracts
+### 4. Deploy Contracts
 
 ```bash
 cd contracts
-npm run deploy:testnet    # For BSC Testnet
-# OR
-npm run deploy:mainnet    # For BSC Mainnet
+npx hardhat run scripts/deploy.ts --network bscTestnet
 ```
 
-**⚠️ IMPORTANT**: After deployment, owner MUST approve 500,000 SPRAI tokens to presale contract!
-
-### 4. Setup Database
+### 5. Start Development
 
 ```bash
-cd backend
-# Create PostgreSQL database
-createdb sprai_presale
+# Backend
+cd backend && npm run dev
 
-# Run migrations (if you create them)
-npm run db:migrate
+# Frontend
+cd frontend && npm run dev
 ```
 
-### 5. Start Backend
+## Key Configuration Values
 
-```bash
-cd backend
-npm run dev
-```
+| Variable | Value |
+|----------|-------|
+| Token Price | $0.25 USDT |
+| Min Purchase | $10 USDT |
+| Max Purchase | $10,000 USDT |
+| Presale Allocation | 500,000 SPRAI (25%) |
+| Owner Wallet | 0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311 |
 
-### 6. Start Frontend
+## Network Switching
 
-```bash
-cd frontend
-npm run dev
-```
+Set `VITE_NETWORK` in `frontend/.env`:
+- `testnet` - BSC Testnet (Chain ID 97)
+- `mainnet` - BSC Mainnet (Chain ID 56)
 
-Visit http://localhost:5173
+## Documentation
 
-### 🔄 Switching Between Testnet and Mainnet
-
-To switch networks, simply update `frontend/.env`:
-
-**For Testnet (Development/Testing):**
-```env
-VITE_NETWORK=testnet
-```
-
-**For Mainnet (Production):**
-```env
-VITE_NETWORK=mainnet
-```
-
-The frontend will automatically:
-- Use the correct RPC URL
-- Connect to the correct chain ID (97 for testnet, 56 for mainnet)
-- Use the correct USDT contract address
-- Use the correct deployed SPRAI and Presale contract addresses
-
-A network badge (TESTNET/MAINNET) will be displayed in the header to show which network is active.
-
-## 📋 Implementation Status
-
-| Component | Status | Location |
-|-----------|--------|----------|
-| SPRAI Token Contract | ✅ Complete | [contracts/contracts/SPRAI.sol](contracts/contracts/SPRAI.sol) |
-| **Presale Contract** | ✅ Complete | [contracts/contracts/SPRAIPresale.sol](contracts/contracts/SPRAIPresale.sol) |
-| Deployment Script | ✅ Complete | [contracts/scripts/deploy.ts](contracts/scripts/deploy.ts) |
-| Backend Config | ✅ Complete | [backend/src/config/index.ts](backend/src/config/index.ts) |
-| Database Models | ✅ Complete | [backend/src/database/models/Transaction.ts](backend/src/database/models/Transaction.ts) |
-| Backend API | ✅ Complete | [backend/src/controllers/](backend/src/controllers/) |
-| Frontend Config | ✅ Complete | [frontend/src/config/index.ts](frontend/src/config/index.ts) |
-| Redux Store | ✅ Complete | [frontend/src/store/](frontend/src/store/) |
-| Web3 Service | ✅ Complete | [frontend/src/services/web3Service.ts](frontend/src/services/web3Service.ts) |
-| API Service | ✅ Complete | [frontend/src/services/apiService.ts](frontend/src/services/apiService.ts) |
-| Page Components | ✅ Complete | [frontend/src/pages/](frontend/src/pages/) |
-| Header Component | ✅ Complete | [frontend/src/components/Header.tsx](frontend/src/components/Header.tsx) |
-| App & Routing | ✅ Complete | [frontend/src/App.tsx](frontend/src/App.tsx) |
-
-## 🔗 Key Integration Points
-
-### Frontend → Presale Contract
-
-```typescript
-// ✅ CORRECT - Calls presale contract for automatic distribution
-const tx = await web3Service.buyTokens(usdtAmount);
-await tx.wait();
-// SPRAI tokens automatically sent to buyer!
-```
-
-### Backend Validation
-
-```typescript
-// ✅ Validates transaction is to PRESALE CONTRACT
-const valid = actualTo === config.spraiPresaleContract;
-```
-
-## 📖 Next Steps
-
-All implementation is **COMPLETE**! Follow these steps to deploy:
-
-1. **Configure Environment**: Update `.env` files with your values
-2. **Deploy Contracts**: Run deployment script on BSC Testnet/Mainnet
-3. **Approve Tokens**: Owner approves 500,000 SPRAI to presale contract
-4. **Setup Database**: Create PostgreSQL database and run migrations
-5. **Test on Testnet**: Test complete purchase flow before mainnet
-6. **Deploy to Production**: See [DEPLOYMENT.md](DEPLOYMENT.md) for details
-
-## ⚠️ CRITICAL REMINDERS
-
-- ✅ **NEVER hardcode** contract addresses, prices, or configuration
-- ✅ **ALL values** come from `.env` files
-- ✅ Presale contract handles **automatic** distribution
-- ✅ Owner must **approve SPRAI** tokens to presale contract
-- ✅ Backend **only tracks** transactions, never holds funds
-- ✅ All components must be **responsive** (mobile, tablet, desktop)
-- ✅ TypeScript types must **match database schema**
-
-## 📞 Support
-
-For questions, refer to [PROJECT_IMPLEMENTATION_GUIDE.md](PROJECT_IMPLEMENTATION_GUIDE.md) for complete implementation details.
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deployment instructions
+- [PROJECT_STATUS.md](PROJECT_STATUS.md) - Current project status
+- [overview/PROJECT_IMPLEMENTATION_GUIDE.md](overview/PROJECT_IMPLEMENTATION_GUIDE.md) - Full implementation guide
+- [overview/rule.txt](overview/rule.txt) - Development rules

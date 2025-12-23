@@ -54,7 +54,7 @@ const PurchaseForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
+    <div className="bg-white rounded-sm shadow-lg p-6 sm:p-8">
       <h3 className="text-2xl font-bold mb-6 text-gray-900">Purchase SPRAI Tokens</h3>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* USDT Amount Input */}
@@ -70,7 +70,7 @@ const PurchaseForm: React.FC = () => {
             value={usdtAmount}
             onChange={(e) => handleUsdtChange(e.target.value)}
             placeholder="Enter USDT amount"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+            className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
             disabled={loading || !address}
           />
           <p className="text-sm text-gray-500 mt-1">
@@ -83,7 +83,7 @@ const PurchaseForm: React.FC = () => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             You will receive (SPRAI)
           </label>
-          <div className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-900 font-semibold text-lg">
+          <div className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-sm text-gray-900 font-semibold text-lg">
             {spraiAmount} SPRAI
           </div>
           <p className="text-sm text-gray-500 mt-1">
@@ -95,13 +95,13 @@ const PurchaseForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading || !address || !usdtAmount}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all transform hover:scale-105 disabled:transform-none shadow-lg"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-sm font-bold text-lg hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all transform hover:scale-105 disabled:transform-none shadow-lg"
         >
           {loading ? 'Processing...' : 'Buy SPRAI Tokens'}
         </button>
 
         {/* Info Box */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="bg-blue-50 border border-blue-200 rounded-sm p-4">
           <h4 className="font-semibold text-blue-900 mb-2">Important Information</h4>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>• Tokens are sent automatically after confirmation</li>

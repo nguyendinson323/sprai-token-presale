@@ -2276,14 +2276,14 @@ const Header = () => {
       <img
         src="/assets/banner-dois.jpeg"
         alt="SPRAI Banner"
-        className="max-w-[90%] sm:max-w-[75%] md:max-w-[60%] h-auto mx-auto my-4 sm:my-5 rounded-lg"
+        className="max-w-[90%] sm:max-w-[75%] md:max-w-[60%] h-auto mx-auto my-4 sm:my-5 rounded-sm"
       />
 
       {/* Action Buttons - Responsive layout and sizing */}
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 px-2">
         <Link
           to="/presale"
-          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
+          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
         >
           💰 Comprar PRE-SALE SPRAI
         </Link>
@@ -2291,21 +2291,21 @@ const Header = () => {
           href="https://pancakeswap.finance/swap?outputCurrency=0x7C7e518D6d91498BbD850a834e36a96661ac9B1B"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
+          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
         >
           🥞 Comprar PancakeSwap
         </a>
         <a
           href="/assets/Whitepaper_SPRAI_PT.pdf"
           target="_blank"
-          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
+          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
         >
           📄 Ver Whitepaper (PT)
         </a>
         <a
           href="/assets/Whitepaper_SPRAI_EN.pdf"
           target="_blank"
-          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
+          className="bg-green-700 text-white py-2 px-4 sm:py-3 sm:px-8 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 hover:shadow-lg transition-all text-sm sm:text-base"
         >
           📄 View Whitepaper (EN)
         </a>
@@ -2441,14 +2441,14 @@ const FAQSection: FC = () => {
 
       {/* FAQ Items - Responsive */}
       <div className="max-w-xl sm:max-w-2xl mx-auto text-left space-y-3 sm:space-y-4 px-4">
-        <div className="bg-white/5 rounded-lg p-3 sm:p-4">
+        <div className="bg-white/5 rounded-sm p-3 sm:p-4">
           <p className="font-bold text-sm sm:text-base mb-1">Q: A SPRAI é segura?</p>
           <p className="text-sm sm:text-base text-gray-200">
             R: Sim, nosso contrato é verificado e a liquidez está travada na Mudra.
           </p>
         </div>
 
-        <div className="bg-white/5 rounded-lg p-3 sm:p-4">
+        <div className="bg-white/5 rounded-sm p-3 sm:p-4">
           <p className="font-bold text-sm sm:text-base mb-1">Q: Como compro SPRAI?</p>
           <p className="text-sm sm:text-base text-gray-200">
             R: Basta clicar no botão "Comprar SPRAI", conectar sua MetaMask e
@@ -2485,7 +2485,7 @@ const LinksSection: FC = () => {
           href="https://bscscan.com/address/0x8e1d34a80ad9ca7f8393a204ca618e59c54fc363"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
+          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
         >
           ✅ Contrato Verificado (BscScan)
         </a>
@@ -2497,7 +2497,7 @@ const LinksSection: FC = () => {
           href="https://www.instagram.com/sprai.token"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
+          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
         >
           📸 Instagram
         </a>
@@ -2505,7 +2505,7 @@ const LinksSection: FC = () => {
           href="https://www.facebook.com/spraitoken"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
+          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
         >
           📘 Facebook
         </a>
@@ -2513,7 +2513,7 @@ const LinksSection: FC = () => {
           href="https://twitter.com/spraitoken"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
+          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
         >
           🐦 Twitter (X)
         </a>
@@ -2521,7 +2521,7 @@ const LinksSection: FC = () => {
           href="https://t.me/spraitoken"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
+          className="bg-green-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all text-xs sm:text-base"
         >
           💬 Telegram
         </a>
@@ -2624,7 +2624,7 @@ const Presale = () => {
 
         {/* Global Loading Indicator */}
         {isLoading && (
-          <div className="fixed top-4 right-4 bg-green-700 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse">
+          <div className="fixed top-4 right-4 bg-green-700 text-white px-6 py-3 rounded-sm shadow-lg z-50 animate-pulse">
             {loadingMessage || 'Loading...'}
           </div>
         )}
@@ -2642,7 +2642,7 @@ const Presale = () => {
                 <button
                   onClick={handleConnect}
                   disabled={isLoading}
-                  className="bg-green-700 text-white py-3 sm:py-4 px-8 sm:px-10 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all disabled:opacity-50 text-sm sm:text-base"
+                  className="bg-green-700 text-white py-3 sm:py-4 px-8 sm:px-10 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all disabled:opacity-50 text-sm sm:text-base"
                 >
                   {isLoading ? 'Connecting...' : '🔗 Connect Wallet'}
                 </button>
@@ -2765,14 +2765,14 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
           placeholder="Enter USDT amount"
           min="10"
           max="10000"
-          className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/20 border-2 border-green-700 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 text-sm sm:text-base"
+          className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-sm bg-white/20 border-2 border-green-700 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 text-sm sm:text-base"
         />
       </div>
 
       {/* SPRAI Preview - Responsive */}
       <div className="mb-4 sm:mb-6">
         <label className="block text-xs sm:text-sm mb-2">You will receive:</label>
-        <div className="bg-green-800/50 rounded-lg p-3 sm:p-4">
+        <div className="bg-green-800/50 rounded-sm p-3 sm:p-4">
           <p className="text-2xl sm:text-3xl font-bold">{spraiAmount} SPRAI</p>
           <p className="text-xs sm:text-sm text-gray-300 mt-2">Price: 0.50 USDT per SPRAI</p>
         </div>
@@ -2782,14 +2782,14 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
       <button
         onClick={onPurchase}
         disabled={isLoading || !usdtAmount || parseFloat(usdtAmount) < 10}
-        className="w-full bg-green-700 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-lg border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all disabled:opacity-50 text-sm sm:text-base"
+        className="w-full bg-green-700 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-sm border-2 border-green-900 font-bold shadow-md hover:bg-green-600 transition-all disabled:opacity-50 text-sm sm:text-base"
       >
         {isLoading ? 'Processing...' : '💰 Buy SPRAI'}
       </button>
 
       {/* Transaction Hash Display - Responsive */}
       {currentTransaction && (
-        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-green-900/50 rounded-lg">
+        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-green-900/50 rounded-sm">
           <p className="text-xs sm:text-sm mb-1">Transaction Hash:</p>
           <a
             href={`https://bscscan.com/tx/${currentTransaction.transactionHash}`}
@@ -2849,22 +2849,22 @@ const PresaleStats: FC = () => {
 
       {/* Stats Grid - Responsive */}
       <div className="space-y-4">
-        <div className="bg-green-800/30 rounded-lg p-3 sm:p-4">
+        <div className="bg-green-800/30 rounded-sm p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-300">Total USDT Raised</p>
           <p className="text-xl sm:text-2xl font-bold">{stats.totalUsdtRaised}</p>
         </div>
 
-        <div className="bg-green-800/30 rounded-lg p-3 sm:p-4">
+        <div className="bg-green-800/30 rounded-sm p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-300">Total SPRAI Sold</p>
           <p className="text-xl sm:text-2xl font-bold">{stats.totalSpraiSold}</p>
         </div>
 
-        <div className="bg-green-800/30 rounded-lg p-3 sm:p-4">
+        <div className="bg-green-800/30 rounded-sm p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-300">Total Transactions</p>
           <p className="text-xl sm:text-2xl font-bold">{stats.totalTransactions}</p>
         </div>
 
-        <div className="bg-green-800/30 rounded-lg p-3 sm:p-4">
+        <div className="bg-green-800/30 rounded-sm p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-300">Unique Buyers</p>
           <p className="text-xl sm:text-2xl font-bold">{stats.uniqueBuyers}</p>
         </div>
@@ -3040,14 +3040,14 @@ Use these breakpoints consistently across all components:
 <img className="max-w-[90%] sm:max-w-[75%] md:max-w-[60%] h-auto" />
 
 // Full-width images
-<img className="w-full h-auto rounded-lg sm:rounded-xl lg:rounded-2xl" />
+<img className="w-full h-auto rounded-sm sm:rounded-xl lg:rounded-2xl" />
 ```
 
 #### 5. **Buttons - Responsive Sizing**
 
 ```tsx
 // Primary buttons
-<button className="py-2 px-4 sm:py-3 sm:px-8 text-sm sm:text-base rounded-lg">
+<button className="py-2 px-4 sm:py-3 sm:px-8 text-sm sm:text-base rounded-sm">
   Click Me
 </button>
 
@@ -3145,12 +3145,12 @@ top-0 sm:top-4          // Different positioning values
 ```tsx
 const ResponsiveCard: FC = () => {
   return (
-    <div className="bg-white/10 rounded-lg sm:rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8">
+    <div className="bg-white/10 rounded-sm sm:rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8">
       {/* Image - Responsive sizing */}
       <img
         src="/image.png"
         alt="Card"
-        className="w-full h-auto rounded-md sm:rounded-lg mb-3 sm:mb-4"
+        className="w-full h-auto rounded-md sm:rounded-sm mb-3 sm:mb-4"
       />
 
       {/* Title - Responsive text size */}
@@ -3164,7 +3164,7 @@ const ResponsiveCard: FC = () => {
       </p>
 
       {/* Button - Responsive sizing */}
-      <button className="w-full sm:w-auto py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base bg-green-700 rounded-lg">
+      <button className="w-full sm:w-auto py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base bg-green-700 rounded-sm">
         Action
       </button>
     </div>

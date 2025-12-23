@@ -59,6 +59,8 @@ export const config = {
   twitterUrl: import.meta.env.VITE_TWITTER_URL || '',
   discordUrl: import.meta.env.VITE_DISCORD_URL || '',
   websiteUrl: import.meta.env.VITE_WEBSITE_URL || '',
+  instagramUrl: import.meta.env.VITE_INSTAGRAM_URL || '',
+  facebookUrl: import.meta.env.VITE_FACEBOOK_URL || '',
 };
 
 // ============================================
