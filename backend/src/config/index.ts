@@ -2,10 +2,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // ============================================
-// LOAD ENVIRONMENT VARIABLES FROM ROOT .env
-// Path: backend/src/config -> backend/src -> backend -> root
+// LOAD ENVIRONMENT VARIABLES FROM backend/.env
 // ============================================
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 // ============================================
 // EXPORT CONFIGURATION OBJECT

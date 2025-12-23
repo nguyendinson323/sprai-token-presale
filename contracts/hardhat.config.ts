@@ -1,10 +1,9 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import dotenv from "dotenv";
-import path from "path";
 
-// ⚠️ Load from root .env
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+// Load from contracts/.env
+dotenv.config();
 
 // Check if private key is valid (64 hex chars without 0x, or 66 with 0x)
 const isValidPrivateKey = (key: string | undefined): boolean => {
