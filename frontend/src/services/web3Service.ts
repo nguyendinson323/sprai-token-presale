@@ -23,18 +23,29 @@ const PRESALE_ABI = [
 class Web3Service {
   private provider: BrowserProvider | null = null;
   private signer: ethers.Signer | null = null;
+  private selectedProvider: any = null;
+
+  setSelectedProvider(provider: any) {
+    this.selectedProvider = provider;
+  }
+
+  getSelectedProvider(): any {
+    return this.selectedProvider;
+  }
 
   async connectWallet(): Promise<{ address: string; chainId: number }> {
-    if (!window.ethereum) {
-      throw new Error('Please install MetaMask');
+    const ethereum = this.selectedProvider;
+
+    if (!ethereum) {
+      throw new Error('Please select a wallet first');
     }
 
     // Request account access
-    const accounts = await window.ethereum.request({
+    const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
     });
 
-    this.provider = new BrowserProvider(window.ethereum);
+    this.provider = new BrowserProvider(ethereum);
     this.signer = await this.provider.getSigner();
 
     const address = accounts[0];
@@ -50,20 +61,21 @@ class Web3Service {
   }
 
   async switchToBSC() {
-    if (!window.ethereum) return;
+    const ethereum = this.selectedProvider;
+    if (!ethereum) return;
 
     // ⚠️ USE CONFIG FOR CHAIN ID
     const chainIdHex = '0x' + config.chainId.toString(16);
 
     try {
-      await window.ethereum.request({
+      await ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: chainIdHex }],
       });
     } catch (error: any) {
       // Chain not added, add it
       if (error.code === 4902) {
-        await window.ethereum.request({
+        await ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [{
             chainId: chainIdHex,
