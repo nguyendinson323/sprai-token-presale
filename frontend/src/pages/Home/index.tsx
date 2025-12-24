@@ -28,7 +28,7 @@ const Home: React.FC = () => {
           <img
             src="/logo.png"
             alt="SPRAI Logo"
-            className="w-32 sm:w-40 lg:w-48 mx-auto mb-8 block anim-fade-down anim-light-slow"
+            className="w-full mx-auto mb-8 block anim-fade-down anim-light-slow"
             style={{ filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))' }}
           />
 
@@ -51,12 +51,17 @@ const Home: React.FC = () => {
             A CRIPTOMOEDA PARA UM FUTURO SUSTENTAVEL E DIGITAL
           </p>
 
-          {/* Banner Image */}
+          {/* Banner Image - Full Width */}
           <img
             src="/banner-dois.jpeg"
             alt="SPRAI Banner"
-            className="w-full max-w-3xl mx-auto mb-10 block anim-zoom-out anim-slow anim-delay-600 transition-all duration-300 hover:scale-105 hover:-translate-y-2"
-            style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)', borderRadius: '6px' }}
+            className="w-screen mb-10 block anim-zoom-out anim-slow anim-delay-600 transition-all duration-300 hover:scale-105"
+            style={{
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+              marginLeft: 'calc(-50vw + 50%)',
+              marginRight: 'calc(-50vw + 50%)',
+              maxWidth: '100vw',
+            }}
           />
 
           {/* Buttons */}
@@ -100,13 +105,18 @@ const Home: React.FC = () => {
       <FAQSection />
       <LinksSection />
 
-      {/* Bottom Banner */}
-      <div className="py-16 px-4 text-center">
+      {/* Bottom Banner - Full Width */}
+      <div className="py-16 text-center overflow-hidden">
         <img
           src="/sprai-banner.png"
           alt="SPRAI Banner"
-          className="w-full max-w-2xl mx-auto anim-zoom-in anim-slow transition-transform duration-300 hover:scale-105 hover:rotate-2"
-          style={{ boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)', borderRadius: '6px' }}
+          className="w-screen anim-zoom-in anim-slow transition-transform duration-300 hover:scale-105"
+          style={{
+            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)',
+            marginLeft: 'calc(-50vw + 50%)',
+            marginRight: 'calc(-50vw + 50%)',
+            maxWidth: '100vw',
+          }}
         />
       </div>
 
