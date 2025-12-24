@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { config } from './config';
 import sequelize from './database/config';
+import { initTransactionModel } from './database/models/Transaction';
 import transactionRoutes from './routes/transactionRoutes';
 
 // ============================================
@@ -36,6 +37,9 @@ app.use('/api/transactions', transactionRoutes);
 // Database connection
 async function startServer() {
   try {
+    // Initialize models
+    initTransactionModel(sequelize);
+    
     // Test database connection
     await sequelize.authenticate();
     console.log('✅ Database connected successfully');

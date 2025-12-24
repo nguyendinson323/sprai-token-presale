@@ -11,13 +11,13 @@ const LinksSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-2xl">
         <h2
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 anim-zoom-in anim-normal"
-          style={{ color: '#FFD700', textShadow: '0 0 20px rgba(255, 215, 0, 0.3)' }}
+          style={{ color: '#1a1a1a' }}
         >
-          🔗 Links Oficiais
+          Links Oficiais
         </h2>
 
         <div className="flex flex-col gap-4 items-center">
@@ -27,7 +27,8 @@ const LinksSection: React.FC = () => {
               href={link.url!}
               target="_blank"
               rel="noopener noreferrer"
-              className={`border border-yellow-400/30 text-yellow-400 font-bold px-8 py-4 rounded-lg w-full sm:w-96 text-center transition-all duration-300 hover:border-yellow-400/60 hover:-translate-y-1 anim-fade-up anim-normal anim-delay-${link.delay}`}
+              className={`border border-black/30 text-black font-bold px-8 py-4 w-full sm:w-96 text-center bg-white/20 transition-all duration-300 hover:border-black/60 hover:-translate-y-1 anim-fade-up anim-normal anim-delay-${link.delay}`}
+              style={{ borderRadius: '6px' }}
             >
               {link.icon} {link.label}
             </a>

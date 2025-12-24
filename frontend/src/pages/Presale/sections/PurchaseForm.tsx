@@ -55,17 +55,18 @@ const PurchaseForm: React.FC = () => {
 
   return (
     <div
-      className="backdrop-blur-md rounded-2xl p-6 sm:p-8"
+      className="backdrop-blur-md p-6 sm:p-8"
       style={{
-        background: 'rgba(255, 255, 255, 0.95)',
+        background: 'rgba(255, 255, 255, 0.25)',
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+        borderRadius: '6px',
       }}
     >
-      <h2 className="text-2xl font-bold mb-6 text-gray-900">Purchase SPRAI Tokens</h2>
+      <h2 className="text-2xl font-bold mb-6 text-black">Purchase SPRAI Tokens</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         {/* USDT Amount Input */}
         <div className="anim-fade-up anim-light-slow">
-          <label htmlFor="usdt-amount" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="usdt-amount" className="block text-sm font-medium text-black/80 mb-2">
             Amount to Pay
           </label>
           <div className="relative">
@@ -79,20 +80,21 @@ const PurchaseForm: React.FC = () => {
               step="0.01"
               min={config.minPurchaseUsdt}
               max={config.maxPurchaseUsdt}
-              className="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-base"
+              className="w-full px-4 py-3 pr-16 border border-black/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-white/30 disabled:cursor-not-allowed text-base bg-white/50"
+              style={{ borderRadius: '6px' }}
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-black/60 font-medium">
               USDT
             </span>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-black/60 mt-2">
             Min: ${config.minPurchaseUsdt} | Max: ${config.maxPurchaseUsdt}
           </p>
         </div>
 
         {/* SPRAI Amount Display */}
         <div className="anim-fade-up anim-light-slow anim-delay-200">
-          <label htmlFor="sprai-amount" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="sprai-amount" className="block text-sm font-medium text-black/80 mb-2">
             You will receive
           </label>
           <input
@@ -101,9 +103,10 @@ const PurchaseForm: React.FC = () => {
             value={`${spraiAmount} SPRAI`}
             disabled
             readOnly
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-50 font-bold text-lg text-gray-900"
+            className="w-full px-4 py-3 border border-black/30 bg-white/50 font-bold text-lg text-black"
+            style={{ borderRadius: '6px' }}
           />
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-black/60 mt-2">
             Price: ${config.tokenPriceUsdt} USDT per SPRAI
           </p>
         </div>
@@ -112,7 +115,7 @@ const PurchaseForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading || !address || !usdtAmount}
-          className="w-full py-4 rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed anim-fade-up anim-light-slow anim-delay-400 anim-pulse"
+          className="w-full py-4 font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed anim-fade-up anim-light-slow anim-delay-400 anim-pulse"
           style={{
             background: loading || !address || !usdtAmount
               ? '#9ca3af'
@@ -121,6 +124,7 @@ const PurchaseForm: React.FC = () => {
             boxShadow: loading || !address || !usdtAmount
               ? 'none'
               : '0 4px 12px rgba(102, 126, 234, 0.4)',
+            borderRadius: '6px',
           }}
         >
           {loading ? 'Processing...' : 'Buy SPRAI Tokens'}
@@ -128,13 +132,14 @@ const PurchaseForm: React.FC = () => {
 
         {/* Info Box */}
         <div
-          className="rounded-lg p-4 border-l-4 border-blue-500 anim-fade-up anim-light-slow anim-delay-600"
+          className="p-4 border-l-4 border-black/50 anim-fade-up anim-light-slow anim-delay-600"
           style={{
-            background: 'rgba(59, 130, 246, 0.1)',
+            background: 'rgba(255, 255, 255, 0.3)',
+            borderRadius: '6px',
           }}
         >
-          <p className="text-sm font-bold text-gray-900 mb-2">Important Information</p>
-          <ul className="text-sm text-gray-700 space-y-1 pl-5 list-disc">
+          <p className="text-sm font-bold text-black mb-2">Important Information</p>
+          <ul className="text-sm text-black/80 space-y-1 pl-5 list-disc">
             <li>Tokens are sent automatically after confirmation</li>
             <li>Make sure you have enough USDT on BSC network</li>
             <li>Transaction requires two MetaMask confirmations</li>

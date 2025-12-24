@@ -20,6 +20,10 @@ const sequelize = new Sequelize({
     idle: config.database.pool.idle,
   },
   logging: config.nodeEnv === 'development' ? console.log : false,
+  define: {
+    timestamps: true,
+    underscored: true,
+  },
 });
 
 export default sequelize;

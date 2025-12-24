@@ -1,5 +1,4 @@
-import { DataTypes, Model, Optional } from 'sequelize';
-import sequelize from '../config';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
 // ============================================
 // TRANSACTION MODEL
@@ -36,60 +35,64 @@ class Transaction extends Model<TransactionAttributes, TransactionCreationAttrib
   public readonly updatedAt!: Date;
 }
 
-Transaction.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+export function initTransactionModel(sequelize: Sequelize): typeof Transaction {
+  Transaction.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      transactionHash: {
+        type: DataTypes.STRING(66),
+        allowNull: false,
+        unique: true,
+        field: 'transaction_hash',
+      },
+      buyerWallet: {
+        type: DataTypes.STRING(42),
+        allowNull: false,
+        field: 'buyer_wallet',
+      },
+      usdtAmount: {
+        type: DataTypes.DECIMAL(20, 2),
+        allowNull: false,
+        field: 'usdt_amount',
+      },
+      spraiAmount: {
+        type: DataTypes.DECIMAL(20, 2),
+        allowNull: false,
+        field: 'sprai_amount',
+      },
+      tokenPrice: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+        field: 'token_price',
+      },
+      blockNumber: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'block_number',
+      },
+      timestamp: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      validated: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
     },
-    transactionHash: {
-      type: DataTypes.STRING(66),
-      allowNull: false,
-      unique: true,
-      field: 'transaction_hash',
-    },
-    buyerWallet: {
-      type: DataTypes.STRING(42),
-      allowNull: false,
-      field: 'buyer_wallet',
-    },
-    usdtAmount: {
-      type: DataTypes.DECIMAL(20, 2),
-      allowNull: false,
-      field: 'usdt_amount',
-    },
-    spraiAmount: {
-      type: DataTypes.DECIMAL(20, 2),
-      allowNull: false,
-      field: 'sprai_amount',
-    },
-    tokenPrice: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-      field: 'token_price',
-    },
-    blockNumber: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      field: 'block_number',
-    },
-    timestamp: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    validated: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize,
-    tableName: 'transactions',
-    timestamps: true,
-    underscored: true,
-  }
-);
+    {
+      sequelize,
+      tableName: 'transactions',
+      timestamps: true,
+      underscored: true,
+    }
+  );
+  
+  return Transaction;
+}
 
 export default Transaction;

@@ -25,17 +25,17 @@ const Presale: React.FC = () => {
     <div
       className="min-h-screen py-8 px-4 sm:px-6 lg:px-8"
       style={{
-        background: 'linear-gradient(135deg, rgba(46, 139, 87, 0.95) 0%, rgba(27, 94, 32, 0.85) 50%, rgba(20, 60, 25, 0.95) 100%)',
+        backgroundImage: 'linear-gradient(to right, #FFD700, #2E8B57)',
         backgroundAttachment: 'fixed',
       }}
     >
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-12 anim-fade-down anim-light-slow">
-          <h1 className="text-4xl sm:text-5xl font-black mb-4" style={{ color: '#FFD700', textShadow: '0 0 20px rgba(255, 215, 0, 0.3)' }}>
+          <h1 className="text-4xl sm:text-5xl font-black mb-4" style={{ color: '#1a1a1a' }}>
             SPRAI Token Presale
           </h1>
-          <p className="text-lg sm:text-xl text-white/90">
+          <p className="text-lg sm:text-xl text-black/80">
             Purchase SPRAI tokens with USDT on Binance Smart Chain
           </p>
         </div>
@@ -44,24 +44,26 @@ const Presale: React.FC = () => {
         {!connected ? (
           <div className="max-w-md mx-auto anim-zoom-in anim-normal anim-delay-200">
             <div
-              className="backdrop-blur-md rounded-2xl p-8 text-center"
+              className="backdrop-blur-md p-8 text-center"
               style={{
-                background: 'rgba(255, 255, 255, 0.95)',
+                background: 'rgba(255, 255, 255, 0.25)',
                 boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+                borderRadius: '6px',
               }}
             >
               <div className="text-7xl mb-4">🔒</div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-900">Connect Your Wallet</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-2xl font-bold mb-4 text-black">Connect Your Wallet</h2>
+              <p className="text-black/70 mb-6">
                 Connect your MetaMask wallet to participate in the presale
               </p>
               <button
                 onClick={handleConnectWallet}
-                className="w-full py-4 rounded-lg font-bold text-lg transition-all anim-pulse"
+                className="w-full py-4 font-bold text-lg transition-all anim-pulse"
                 style={{
                   background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                   color: '#000',
                   boxShadow: '0 8px 20px rgba(255, 215, 0, 0.4)',
+                  borderRadius: '6px',
                 }}
               >
                 Connect MetaMask
@@ -83,45 +85,47 @@ const Presale: React.FC = () => {
               {/* Transaction History */}
               {transactions.length > 0 && (
                 <div
-                  className="mt-8 backdrop-blur-md rounded-2xl p-6"
+                  className="mt-8 backdrop-blur-md p-6"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.95)',
+                    background: 'rgba(255, 255, 255, 0.25)',
                     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                    borderRadius: '6px',
                   }}
                 >
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">Your Transactions</h3>
+                  <h3 className="text-xl font-bold mb-4 text-black">Your Transactions</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="bg-gray-50 border-b">
+                      <thead className="bg-white/30 border-b border-black/20">
                         <tr>
-                          <th className="px-4 py-3 text-left text-gray-700">Date</th>
-                          <th className="px-4 py-3 text-left text-gray-700">USDT</th>
-                          <th className="px-4 py-3 text-left text-gray-700">SPRAI</th>
-                          <th className="px-4 py-3 text-left text-gray-700">Status</th>
+                          <th className="px-4 py-3 text-left text-black/80">Date</th>
+                          <th className="px-4 py-3 text-left text-black/80">USDT</th>
+                          <th className="px-4 py-3 text-left text-black/80">SPRAI</th>
+                          <th className="px-4 py-3 text-left text-black/80">Status</th>
                         </tr>
                       </thead>
                       <tbody>
                         {transactions.map((tx, index) => (
                           <tr
                             key={tx.id}
-                            className={`border-b hover:bg-gray-50 anim-fade-up anim-normal anim-delay-${index * 100}`}
+                            className={`border-b border-black/10 hover:bg-white/20 anim-fade-up anim-normal anim-delay-${index * 100}`}
                           >
-                            <td className="px-4 py-3 text-gray-900">
+                            <td className="px-4 py-3 text-black">
                               {new Date(tx.timestamp).toLocaleDateString()}
                             </td>
-                            <td className="px-4 py-3 text-gray-900">
+                            <td className="px-4 py-3 text-black">
                               {parseFloat(tx.usdtAmount).toFixed(2)}
                             </td>
-                            <td className="px-4 py-3 text-gray-900">
+                            <td className="px-4 py-3 text-black">
                               {parseFloat(tx.spraiAmount).toFixed(2)}
                             </td>
                             <td className="px-4 py-3">
                               <span
-                                className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                className={`px-2 py-1 text-xs font-semibold ${
                                   tx.validated
-                                    ? 'bg-green-100 text-green-800'
-                                    : 'bg-yellow-100 text-yellow-800'
+                                    ? 'bg-green-500/30 text-green-900'
+                                    : 'bg-yellow-500/30 text-yellow-900'
                                 }`}
+                                style={{ borderRadius: '6px' }}
                               >
                                 {tx.validated ? 'Validated' : 'Pending'}
                               </span>
