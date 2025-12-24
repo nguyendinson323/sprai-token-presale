@@ -9,6 +9,12 @@ async function main() {
   const network = process.env.NETWORK || 'bsc_testnet';
   const isMainnet = network === 'bsc_mainnet';
 
+  // Token configuration from .env
+  const tokenName = process.env.TOKEN_NAME || 'SPRAI TOKEN';
+  const tokenSymbol = process.env.TOKEN_SYMBOL || 'SPRAI';
+  const tokenTotalSupply = process.env.TOKEN_TOTAL_SUPPLY || '2000000';
+  const tokenDecimals = process.env.TOKEN_DECIMALS || '18';
+
   // Select USDT contract based on network
   const usdtContract = isMainnet
     ? process.env.USDT_CONTRACT_MAINNET
@@ -28,6 +34,12 @@ async function main() {
   console.log("📋 Deployment Configuration:");
   console.log("   Network:", hre.network.name);
   console.log("   Owner Wallet:", ownerWallet);
+  console.log("");
+  console.log("   Token Name:", tokenName);
+  console.log("   Token Symbol:", tokenSymbol);
+  console.log("   Total Supply:", tokenTotalSupply);
+  console.log("   Decimals:", tokenDecimals);
+  console.log("");
   console.log("   USDT Contract:", usdtContract);
   console.log("   Token Price:", tokenPriceUsdt, "USDT");
   console.log("   Min Purchase:", minPurchase, "USDT");
@@ -46,11 +58,19 @@ async function main() {
   // ============================================
   console.log("📦 [1/2] Deploying SPRAI Token...");
   const SPRAI = await ethers.getContractFactory("SPRAI");
-  const spraiToken = await SPRAI.deploy();
+  const spraiToken = await SPRAI.deploy(
+    tokenName,
+    tokenSymbol,
+    tokenTotalSupply,
+    parseInt(tokenDecimals)
+  );
   await spraiToken.waitForDeployment();
 
   const spraiAddress = await spraiToken.getAddress();
   console.log("✅ SPRAI Token deployed to:", spraiAddress);
+  console.log(`   Name: ${tokenName}`);
+  console.log(`   Symbol: ${tokenSymbol}`);
+  console.log(`   Total Supply: ${tokenTotalSupply} tokens`);
 
   // ============================================
   // STEP 2: Deploy Presale Contract
@@ -95,7 +115,7 @@ async function main() {
   console.log(`   Amount: 500000000000000000000000 (500,000 tokens with 18 decimals)`);
   console.log("");
   console.log("2. Verify contracts on BSCScan:");
-  console.log(`   npx hardhat verify --network ${hre.network.name} ${spraiAddress}`);
+  console.log(`   npx hardhat verify --network ${hre.network.name} ${spraiAddress} "${tokenName}" "${tokenSymbol}" ${tokenTotalSupply} ${tokenDecimals}`);
   console.log(`   npx hardhat verify --network ${hre.network.name} ${presaleAddress} ${spraiAddress} ${usdtContract} ${ownerWallet} ${tokenPriceWei} ${minPurchaseWei} ${maxPurchaseWei}`);
   console.log("");
   console.log("3. Test the presale with a small amount before going live!");

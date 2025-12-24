@@ -7,18 +7,25 @@ const WalletInfo: React.FC = () => {
   if (!address) return null;
 
   return (
-    <div className="bg-white rounded-sm shadow-lg p-6 mb-8">
+    <div
+      className="backdrop-blur-md rounded-2xl p-6 anim-fade-up anim-light-slow anim-delay-200"
+      style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+      }}
+    >
       <h3 className="text-xl font-bold mb-4 text-gray-900">Wallet Information</h3>
-      <div className="space-y-3">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b pb-3">
-          <span className="text-gray-600 mb-1 sm:mb-0">Connected Wallet:</span>
-          <span className="font-mono text-sm text-gray-900 break-all">
+      <div>
+        <div className="flex justify-between items-center pb-4">
+          <span className="text-sm text-gray-600">Connected Wallet:</span>
+          <span className="text-sm font-mono font-bold text-gray-900 break-all">
             {address.slice(0, 6)}...{address.slice(-4)}
           </span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <span className="text-gray-600 mb-1 sm:mb-0">USDT Balance:</span>
-          <span className="font-semibold text-gray-900">
+        <div className="border-t border-gray-200 mb-4" />
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-gray-600">USDT Balance:</span>
+          <span className="text-base font-bold text-gray-900">
             {parseFloat(usdtBalance).toFixed(2)} USDT
           </span>
         </div>
