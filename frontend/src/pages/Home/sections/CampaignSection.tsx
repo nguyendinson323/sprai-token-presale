@@ -16,7 +16,7 @@ const CampaignSection: React.FC = () => {
           className="border-2 border-black/30 p-12 text-center transition-all duration-300 hover:scale-105 hover:border-black/60 bg-white/20 anim-zoom-in anim-slow anim-delay-200"
           style={{ borderRadius: '6px' }}
         >
-          <div className="text-7xl mb-6 anim-floating">🌳</div>
+          <div className="text-7xl mb-6">🌳</div>
           <p className="text-black/80 text-xl sm:text-2xl leading-relaxed">
             Participe da campanha <strong className="text-black">"Plante e Ganhe {config.tokenSymbol}"</strong>.
             Incentive a preservacao plantando uma Arvore!

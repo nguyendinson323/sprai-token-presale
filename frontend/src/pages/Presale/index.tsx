@@ -67,7 +67,7 @@ const Presale: React.FC = () => {
               </p>
               <button
                 onClick={handleConnectWallet}
-                className="w-full py-4 font-bold text-lg transition-all anim-pulse"
+                className="w-full py-4 font-bold text-lg transition-all"
                 style={{
                   background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                   color: '#000',

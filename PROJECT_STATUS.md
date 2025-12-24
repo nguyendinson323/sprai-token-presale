@@ -66,7 +66,7 @@ frontend/.env       # Frontend UI config
 | Token Symbol | SPRAI |
 | Total Supply | 2,000,000 |
 | Decimals | 18 |
-| Price | $0.25 USDT |
+| Price | $0.2 USDT |
 | Min Purchase | $10 USDT |
 | Max Purchase | $10,000 USDT |
 | Presale Allocation | 500,000 SPRAI (25%) |

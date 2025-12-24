@@ -19,157 +19,198 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose, onSelect }) 
 
   useEffect(() => {
     if (isOpen) {
-      detectWallets();
+      // Small delay to ensure all wallet extensions have injected their providers
+      setTimeout(() => {
+        detectWallets();
+      }, 100);
     }
   }, [isOpen]);
 
   const detectWallets = () => {
     const detected: WalletOption[] = [];
-    const providers: any[] = [];
+    const win = window as any;
 
-    // Collect all providers from window.ethereum.providers array
-    if (window.ethereum?.providers && Array.isArray(window.ethereum.providers)) {
-      providers.push(...window.ethereum.providers);
-    }
+    console.log('=== WALLET DETECTION START ===');
 
-    // Also add window.ethereum itself
-    if (window.ethereum) {
-      providers.push(window.ethereum);
-    }
+    // Check specific wallet globals FIRST (most reliable method)
+    const phantomEth = win.phantom?.ethereum;
+    const okxWallet = win.okxwallet;
+    const binanceWallet = win.BinanceChain;
+    const trustWallet = win.trustwallet?.ethereum;
+    const coinbaseWallet = win.coinbaseWalletExtension;
 
-    // Check for specific wallet globals
-    const okxWallet = (window as any).okxwallet;
-    const binanceWallet = (window as any).BinanceChain;
-    const trustWallet = (window as any).trustwallet?.ethereum;
-    const phantomEth = (window as any).phantom?.ethereum;
-    const coinbaseWallet = (window as any).coinbaseWalletExtension;
-
-    if (okxWallet && !providers.includes(okxWallet)) providers.push(okxWallet);
-    if (binanceWallet && !providers.includes(binanceWallet)) providers.push(binanceWallet);
-    if (trustWallet && !providers.includes(trustWallet)) providers.push(trustWallet);
-    if (phantomEth && !providers.includes(phantomEth)) providers.push(phantomEth);
-    if (coinbaseWallet && !providers.includes(coinbaseWallet)) providers.push(coinbaseWallet);
-
-    // Remove duplicates by reference
-    const uniqueProviders = providers.filter((p, i, arr) => arr.indexOf(p) === i);
-
-    // Debug: log all provider properties
-    console.log('=== WALLET DETECTION DEBUG ===');
-    uniqueProviders.forEach((p, i) => {
-      console.log(`Provider ${i}:`, {
-        isMetaMask: p.isMetaMask,
-        isPhantom: p.isPhantom,
-        isTrust: p.isTrust,
-        isTrustWallet: p.isTrustWallet,
-        isCoinbaseWallet: p.isCoinbaseWallet,
-        isBraveWallet: p.isBraveWallet,
-        isOkxWallet: p.isOkxWallet,
-        isBinance: p.isBinance,
-        _isPhantom: p._isPhantom,
-        constructor: p.constructor?.name,
-      });
+    console.log('Wallet globals:', {
+      'window.phantom?.ethereum': !!phantomEth,
+      'window.okxwallet': !!okxWallet,
+      'window.BinanceChain': !!binanceWallet,
+      'window.trustwallet?.ethereum': !!trustWallet,
+      'window.coinbaseWalletExtension': !!coinbaseWallet,
+      'window.ethereum': !!win.ethereum,
+      'window.ethereum.providers': win.ethereum?.providers?.length || 0,
     });
 
-    // Helper to check provider flags safely
-    const hasFlag = (p: any, ...flags: string[]) => {
-      return flags.some(flag => {
-        try {
-          return p[flag] === true;
-        } catch {
-          return false;
-        }
-      });
+    // Collect all providers
+    const providers: any[] = [];
+
+    if (win.ethereum?.providers && Array.isArray(win.ethereum.providers)) {
+      providers.push(...win.ethereum.providers);
+    }
+    if (win.ethereum && !providers.includes(win.ethereum)) {
+      providers.push(win.ethereum);
+    }
+
+    // Helper to safely check a flag on a provider
+    const checkFlag = (provider: any, flag: string): boolean => {
+      try {
+        const value = provider[flag];
+        return value === true;
+      } catch {
+        return false;
+      }
     };
 
-    // Detect MetaMask (but not Phantom pretending to be MetaMask)
-    const metaMaskProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isMetaMask') &&
-      !hasFlag(p, 'isPhantom', '_isPhantom') &&
-      !hasFlag(p, 'isBraveWallet')
-    );
+    // Helper to check if provider matches any flags
+    const hasAnyFlag = (provider: any, flags: string[]): boolean => {
+      return flags.some(flag => checkFlag(provider, flag));
+    };
+
+    // Find MetaMask provider (exclude Phantom which also sets isMetaMask)
+    let metaMaskProvider = null;
+    for (const p of providers) {
+      const isMetaMask = checkFlag(p, 'isMetaMask');
+      const isPhantom = checkFlag(p, 'isPhantom') || p === phantomEth;
+      const isBrave = checkFlag(p, 'isBraveWallet');
+
+      if (isMetaMask && !isPhantom && !isBrave) {
+        metaMaskProvider = p;
+        break;
+      }
+    }
+
     detected.push({
       name: 'MetaMask',
       icon: '🦊',
       installed: !!metaMaskProvider,
-      provider: metaMaskProvider || null,
+      provider: metaMaskProvider,
       installUrl: 'https://metamask.io/download/',
     });
 
-    // Detect Phantom
-    const phantomProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isPhantom', '_isPhantom')
-    ) || phantomEth;
+    // Phantom - check global first, then providers
+    let phantomProvider = phantomEth;
+    if (!phantomProvider) {
+      for (const p of providers) {
+        if (checkFlag(p, 'isPhantom')) {
+          phantomProvider = p;
+          break;
+        }
+      }
+    }
+
     detected.push({
       name: 'Phantom',
       icon: '👻',
       installed: !!phantomProvider,
-      provider: phantomProvider || null,
+      provider: phantomProvider,
       installUrl: 'https://phantom.app/download',
     });
 
-    // Detect Trust Wallet
-    const trustProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isTrust', 'isTrustWallet')
-    ) || trustWallet;
+    // Trust Wallet
+    let trustProvider = trustWallet;
+    if (!trustProvider) {
+      for (const p of providers) {
+        if (hasAnyFlag(p, ['isTrust', 'isTrustWallet'])) {
+          trustProvider = p;
+          break;
+        }
+      }
+    }
+
     detected.push({
       name: 'Trust Wallet',
       icon: '🛡️',
       installed: !!trustProvider,
-      provider: trustProvider || null,
+      provider: trustProvider,
       installUrl: 'https://trustwallet.com/download',
     });
 
-    // Detect Coinbase Wallet
-    const coinbaseProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isCoinbaseWallet', 'isCoinbaseBrowser')
-    ) || coinbaseWallet;
+    // Coinbase Wallet
+    let coinbaseProvider = coinbaseWallet;
+    if (!coinbaseProvider) {
+      for (const p of providers) {
+        if (hasAnyFlag(p, ['isCoinbaseWallet', 'isCoinbaseBrowser'])) {
+          coinbaseProvider = p;
+          break;
+        }
+      }
+    }
+
     detected.push({
       name: 'Coinbase Wallet',
       icon: '🔵',
       installed: !!coinbaseProvider,
-      provider: coinbaseProvider || null,
+      provider: coinbaseProvider,
       installUrl: 'https://www.coinbase.com/wallet/downloads',
     });
 
-    // Detect Brave Wallet
-    const braveProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isBraveWallet')
-    );
+    // Brave Wallet
+    let braveProvider = null;
+    for (const p of providers) {
+      if (checkFlag(p, 'isBraveWallet')) {
+        braveProvider = p;
+        break;
+      }
+    }
+
     detected.push({
       name: 'Brave Wallet',
       icon: '🦁',
       installed: !!braveProvider,
-      provider: braveProvider || null,
+      provider: braveProvider,
       installUrl: 'https://brave.com/wallet/',
     });
 
-    // Detect OKX Wallet
-    const okxProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isOkxWallet', 'isOKExWallet')
-    ) || okxWallet;
+    // OKX Wallet
+    let okxProvider = okxWallet;
+    if (!okxProvider) {
+      for (const p of providers) {
+        if (hasAnyFlag(p, ['isOkxWallet', 'isOKExWallet'])) {
+          okxProvider = p;
+          break;
+        }
+      }
+    }
+
     detected.push({
       name: 'OKX Wallet',
       icon: '⭕',
       installed: !!okxProvider,
-      provider: okxProvider || null,
+      provider: okxProvider,
       installUrl: 'https://www.okx.com/web3',
     });
 
-    // Detect Binance Wallet
-    const binanceProvider = uniqueProviders.find(p =>
-      hasFlag(p, 'isBinance', 'isBinanceChain')
-    ) || binanceWallet;
+    // Binance Wallet
+    let binanceProvider = binanceWallet;
+    if (!binanceProvider) {
+      for (const p of providers) {
+        if (hasAnyFlag(p, ['isBinance', 'isBinanceChain'])) {
+          binanceProvider = p;
+          break;
+        }
+      }
+    }
+
     detected.push({
       name: 'Binance Wallet',
       icon: '🟡',
       installed: !!binanceProvider,
-      provider: binanceProvider || null,
+      provider: binanceProvider,
       installUrl: 'https://www.binance.com/en/web3wallet',
     });
 
-    // Log results
-    console.log('Detected wallets:', detected.filter(w => w.installed).map(w => w.name));
-    console.log('All wallet options:', detected);
+    // Log detection results
+    const installedWallets = detected.filter(w => w.installed);
+    console.log('Installed wallets:', installedWallets.map(w => w.name));
+    console.log('=== WALLET DETECTION END ===');
 
     setWallets(detected);
   };

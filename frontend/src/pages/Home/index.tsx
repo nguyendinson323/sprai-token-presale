@@ -63,7 +63,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center anim-fade-up anim-light-slow anim-delay-800">
             <button
               onClick={handlePresaleClick}
-              className="px-8 py-4 font-bold text-black text-lg transition-all hover:shadow-2xl anim-pulse"
+              className="px-8 py-4 font-bold text-black text-lg transition-all hover:shadow-2xl"
               style={{
                 background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                 boxShadow: '0 8px 20px rgba(255, 215, 0, 0.4)',

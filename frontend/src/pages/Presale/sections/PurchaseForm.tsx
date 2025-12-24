@@ -115,7 +115,7 @@ const PurchaseForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading || !address || !usdtAmount}
-          className="w-full py-4 font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed anim-fade-up anim-light-slow anim-delay-400 anim-pulse"
+          className="w-full py-4 font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed anim-fade-up anim-light-slow anim-delay-400"
           style={{
             background: loading || !address || !usdtAmount
               ? '#9ca3af'

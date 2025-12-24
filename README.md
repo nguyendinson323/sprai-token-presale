@@ -5,7 +5,7 @@
 **Token:** SPRAI TOKEN (SPRAI)
 **Network:** BNB Smart Chain (BSC)
 **Total Supply:** 2,000,000 SPRAI (fixed)
-**Pre-sale Price:** $0.25 USDT per SPRAI
+**Pre-sale Price:** $0.2 USDT per SPRAI
 **Owner Wallet:** 0xCE7Bc99cA0C86Ef55aDF549191b7F498807dE311
 
 ## What This Project Does
@@ -117,7 +117,7 @@ cd frontend && npm run dev
 
 | Variable | Value |
 |----------|-------|
-| Token Price | $0.25 USDT |
+| Token Price | $0.2 USDT |
 | Min Purchase | $10 USDT |
 | Max Purchase | $10,000 USDT |
 | Presale Allocation | 500,000 SPRAI (25%) |

@@ -31,7 +31,7 @@ export const config = {
   usdtContractTestnet: process.env.USDT_CONTRACT_TESTNET || '',
 
   // Pre-sale
-  presaleTokenPriceUsdt: parseFloat(process.env.PRESALE_TOKEN_PRICE_USDT || '0.25'),
+  presaleTokenPriceUsdt: parseFloat(process.env.PRESALE_TOKEN_PRICE_USDT || '0.2'),
   presaleMinPurchaseUsdt: parseFloat(process.env.PRESALE_MIN_PURCHASE_USDT || '10'),
   presaleMaxPurchaseUsdt: parseFloat(process.env.PRESALE_MAX_PURCHASE_USDT || '10000'),
 
