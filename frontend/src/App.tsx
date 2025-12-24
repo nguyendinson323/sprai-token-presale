@@ -5,11 +5,14 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Presale from './pages/Presale';
 
+// Get basename from environment or use root
+const basename = import.meta.env.BASE_URL || '/';
+
 const App: React.FC = () => {
   const { notifications } = useAppSelector((state) => state.ui);
 
   return (
-    <Router>
+    <Router basename={basename}>
       <div className="min-h-screen bg-gray-50">
         <Header />
         <Routes>

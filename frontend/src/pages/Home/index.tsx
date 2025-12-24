@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { config } from '../../config';
 import AboutSection from './sections/AboutSection';
@@ -8,9 +8,23 @@ import LinksSection from './sections/LinksSection';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const logoRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handlePresaleClick = () => {
     navigate('/presale');
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!logoRef.current) return;
+    const rect = logoRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -20, y: x * 20 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
   };
 
   return (
@@ -24,13 +38,29 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <header className="min-h-screen flex items-center overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-6xl">
-          {/* Logo */}
-          <img
-            src="/logo.png"
-            alt="SPRAI Logo"
-            className="w-full mx-auto mb-8 block anim-fade-down anim-light-slow"
-            style={{ filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))' }}
-          />
+          {/* Logo with 3D Effect */}
+          <div
+            ref={logoRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="mx-auto mb-8 cursor-pointer"
+            style={{
+              perspective: '1000px',
+              width: 'fit-content',
+            }}
+          >
+            <img
+              src="/logo.png"
+              alt="SPRAI Logo"
+              className="block"
+              style={{
+                filter: `drop-shadow(${-tilt.y * 0.5}px ${tilt.x * 0.5}px 20px rgba(0, 0, 0, 0.3))`,
+                transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.x !== 0 || tilt.y !== 0 ? 1.02 : 1})`,
+                transition: 'transform 0.15s ease-out, filter 0.15s ease-out',
+                transformStyle: 'preserve-3d',
+              }}
+            />
+          </div>
 
           {/* Title */}
           <h1

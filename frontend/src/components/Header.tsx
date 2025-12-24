@@ -31,20 +31,23 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-40">
+      <header
+        className="sticky top-0 z-40 backdrop-blur-sm"
+        style={{ background: 'rgba(255, 215, 0, 0.7)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo with Network Badge */}
             <div className="flex items-center gap-3">
               <Link to="/" className="flex items-center">
-                <span className="text-2xl sm:text-3xl font-bold text-blue-600">SPRAI</span>
-                <span className="text-2xl sm:text-3xl font-light text-gray-700 ml-1">Token</span>
+                <span className="text-2xl sm:text-3xl font-bold text-black">SPRAI</span>
+                <span className="text-2xl sm:text-3xl font-light text-black/70 ml-1">Token</span>
               </Link>
               <span
                 className={`px-2 py-1 text-xs font-semibold ${
                   config.isMainnet
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-orange-100 text-orange-800'
+                    ? 'bg-green-500/80 text-white'
+                    : 'bg-orange-500/80 text-white'
                 }`}
                 style={{ borderRadius: '6px' }}
               >
@@ -58,8 +61,8 @@ const Header: React.FC = () => {
                 to="/"
                 className={`text-lg font-medium transition-colors ${
                   isActive('/')
-                    ? 'text-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
+                    ? 'text-black font-bold'
+                    : 'text-black/70 hover:text-black'
                 }`}
               >
                 Home
@@ -68,8 +71,8 @@ const Header: React.FC = () => {
                 to="/presale"
                 className={`text-lg font-medium transition-colors ${
                   isActive('/presale')
-                    ? 'text-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
+                    ? 'text-black font-bold'
+                    : 'text-black/70 hover:text-black'
                 }`}
               >
                 Presale
@@ -81,7 +84,7 @@ const Header: React.FC = () => {
               {connected && address ? (
                 <button
                   onClick={handleDisconnectWallet}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md text-sm sm:text-base"
+                  className="bg-black/80 text-white px-4 sm:px-6 py-2 sm:py-3 font-semibold hover:bg-black transition-all shadow-md text-sm sm:text-base"
                   style={{ borderRadius: '6px' }}
                 >
                   <span className="hidden sm:inline">
@@ -95,7 +98,7 @@ const Header: React.FC = () => {
                 <button
                   onClick={handleConnectWallet}
                   disabled={isLoading}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:from-gray-400 disabled:to-gray-500 shadow-md text-sm sm:text-base"
+                  className="bg-black/80 text-white px-4 sm:px-6 py-2 sm:py-3 font-semibold hover:bg-black transition-all disabled:bg-gray-400 shadow-md text-sm sm:text-base"
                   style={{ borderRadius: '6px' }}
                 >
                   Connect Wallet
@@ -110,8 +113,8 @@ const Header: React.FC = () => {
               to="/"
               className={`flex-1 text-center py-2 font-medium transition-colors ${
                 isActive('/')
-                  ? 'bg-blue-100 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-black/20 text-black font-bold'
+                  : 'text-black/70 hover:bg-black/10'
               }`}
               style={{ borderRadius: '6px' }}
             >
@@ -121,8 +124,8 @@ const Header: React.FC = () => {
               to="/presale"
               className={`flex-1 text-center py-2 font-medium transition-colors ${
                 isActive('/presale')
-                  ? 'bg-blue-100 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-black/20 text-black font-bold'
+                  : 'text-black/70 hover:bg-black/10'
               }`}
               style={{ borderRadius: '6px' }}
             >
@@ -133,11 +136,11 @@ const Header: React.FC = () => {
 
         {/* Loading Bar */}
         {isLoading && (
-          <div className="w-full bg-blue-100 border-t border-blue-200">
+          <div className="w-full bg-black/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
               <div className="flex items-center space-x-3">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                <span className="text-sm text-blue-800">{loadingMessage || 'Loading...'}</span>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+                <span className="text-sm text-black">{loadingMessage || 'Loading...'}</span>
               </div>
             </div>
           </div>
